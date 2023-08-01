@@ -12,17 +12,20 @@ provider "aws" {
   region = "us-east-1"
 }
 
-module "auth" {
-  source = "./modules/auth"
-  # If your module accepts variables, they can be passed in here.
-  # variable1 = "value1"
-  # variable2 = "value2"
-}
 
 module "frontend" {
   source = "./modules/frontend"
   # variable1 = "value1"
 }
+
+
+# module "auth" {
+#   source = "./modules/auth"
+#   # If your module accepts variables, they can be passed in here.
+#   # variable1 = "value1"
+#   # variable2 = "value2"
+# }
+
 
 module "backend" {
   source = "./modules/backend"

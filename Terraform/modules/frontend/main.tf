@@ -13,9 +13,46 @@ resource "aws_s3_bucket" "bucket" {
   }
 }
 
+resource "aws_s3_bucket_public_access_block" "example" {
+  bucket = aws_s3_bucket.bucket.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_policy" "bucket_policy" {
+  bucket = aws_s3_bucket.bucket.id
+
+  policy = data.aws_iam_policy_document.allow_public_access.json
+}
+
+data "aws_iam_policy_document" "allow_public_access" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    actions = [
+      "s3:GetObject",
+    ]
+
+    resources = [
+      aws_s3_bucket.bucket.arn,
+      "${aws_s3_bucket.bucket.arn}/*",
+    ]
+  }
+}
+
+data "aws_s3_bucket" "bucket" {
+  bucket = aws_s3_bucket.bucket.id
+}
+
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = aws_s3_bucket.bucket.bucket_regional_domain_name
+    domain_name = "${data.aws_s3_bucket.bucket.bucket_domain_name}"
     origin_id   = "S3Origin"
   }
 
@@ -53,4 +90,5 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   viewer_certificate {
     cloudfront_default_certificate = true
   }
+
 }

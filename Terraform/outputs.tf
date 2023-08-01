@@ -1,21 +1,21 @@
-// Outputs from auth module
-output "USER_POOL_APP_CLIENT_ID" {
-  description = "The ID of the App Client"
-  value       = module.auth.USER_POOL_APP_CLIENT_ID
-  sensitive   = true
-}
+# // Outputs from auth module
+# output "USER_POOL_APP_CLIENT_ID" {
+#   description = "The ID of the App Client"
+#   value       = module.auth.USER_POOL_APP_CLIENT_ID
+#   sensitive   = true
+# }
 
-output "USER_POOL_ID" {
-  description = "The ID of the User Pool"
-  value       = module.auth.USER_POOL_ID
-  sensitive   = true
-}
+# output "USER_POOL_ID" {
+#   description = "The ID of the User Pool"
+#   value       = module.auth.USER_POOL_ID
+#   sensitive   = true
+# }
 
-output "REGION" {
-  description = "AWS Region"
-  value       = module.auth.REGION
-  sensitive   = true
-}
+# output "REGION" {
+#   description = "AWS Region"
+#   value       = module.auth.REGION
+#   sensitive   = true
+# }
 
 // Outputs from frontend module
 output "frontend_bucket_name" {

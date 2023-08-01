@@ -1,6 +1,7 @@
 # Ignore node_modules in Backend and Client
 Backend/node_modules/
 Client/node_modules/
+sample.txt
 
 # Ignore build files in Client
 Client/build/
