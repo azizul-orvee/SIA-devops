@@ -1,0 +1,17 @@
+{
+  "REGION": {
+    "sensitive": true,
+    "type": "string",
+    "value": "us-east-1"
+  },
+  "USER_POOL_APP_CLIENT_ID": {
+    "sensitive": true,
+    "type": "string",
+    "value": "jf9uvlu8ffaeoiflpoff7bpk4"
+  },
+  "USER_POOL_ID": {
+    "sensitive": true,
+    "type": "string",
+    "value": "us-east-1_9MXItUEPb"
+  }
+}
