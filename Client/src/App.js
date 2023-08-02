@@ -16,21 +16,6 @@ Amplify.configure({
 });
 
 function App() {
-  const [jwtToken, setJwtToken] = useState("");
-
-  useEffect(() => {
-    fetchJwtToken();
-  }, []);
-
-  const fetchJwtToken = async () => {
-    try {
-      const session = await Auth.currentSession();
-      const token = session.getIdToken().getJwtToken();
-      setJwtToken(token);
-    } catch (error) {
-      console.log("Error fetching JWT token:", error);
-    }
-  };
 
   return (
     <Authenticator
