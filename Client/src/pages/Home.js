@@ -7,11 +7,6 @@ const Home = () => {
   const [users, setUsers] = useState([]);
   const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
-  useEffect(() => {
-    // Fetch the users data when the component mounts
-    fetchUsers();
-  }, []);
-
   const fetchUsers = () => {
     axios
       .get(`${apiUrl}/users`)
@@ -25,6 +20,11 @@ const Home = () => {
       });
   };
 
+  useEffect(() => {
+    // Fetch the users data when the component mounts
+    fetchUsers();
+  },);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = { username, userphone };
@@ -37,9 +37,9 @@ const Home = () => {
       .post(`${apiUrl}/addUser`, userData)
       .then((response) => {
         console.log(response.data.message);
-        fetchUsers()
-        setUsername('')
-        setUserphone('')
+        fetchUsers();
+        setUsername("");
+        setUserphone("");
         // You can add any success message or redirect to a success page here
       })
       .catch((error) => {
