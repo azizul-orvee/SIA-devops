@@ -27,20 +27,19 @@ jobs:
       - run:
           name: Build Client
           working_directory: ~/repo/Client
-          command: |
-            sudo apt update
-            sudo apt install awscli
+          command: npm run build
       - run:
           name: Install AWS CLI
           command: |
+            sudo apt update
             sudo apt install awscli
             aws s3 ls
 
-      # - run:
-      #     name: Deploy Client to S3
-      #     working_directory: ~/repo/client
-      #     command: |
-      #       aws s3 sync build/ s3://your-s3-bucket-name
+      - run:
+          name: Deploy Client to S3
+          working_directory: ~/repo/client
+          command: |
+            aws s3 cp ./build $S3_BUCKET_URL --recursive
       - run:
           name: Zip Backend
           working_directory: ~/repo/Backend
