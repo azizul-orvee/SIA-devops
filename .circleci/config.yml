@@ -1,12 +1,8 @@
 version: 2
-executors:
-  node-executor:
-    docker:
-      - image: circleci/node:14
-
 jobs:
   test:
-    executor: node-executor
+    docker:
+      - image: circleci/node:latest
     steps:
       - checkout:
           path: ~/repo
@@ -19,7 +15,8 @@ jobs:
           working_directory: ~/repo/backend
           command: echo "Backend tests pass!"
   build:
-    executor: node-executor
+    docker:
+      - image: circleci/node:latest
     steps:
       - checkout:
           path: ~/repo
