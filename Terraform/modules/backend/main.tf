@@ -83,3 +83,8 @@ resource "aws_elastic_beanstalk_environment" "beanstalkappenv" {
   }
  
 }
+
+output "beanstalk_app_url" {
+  value       = aws_elastic_beanstalk_environment.beanstalkappenv.endpoint_url
+  description = "The URL endpoint of the Beanstalk application"
+}

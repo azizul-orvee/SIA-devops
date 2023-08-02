@@ -18,3 +18,4 @@ Terraform/*.tfstate.backup
 
 # Ignore .env files in all folders
 *.env
+*.zip

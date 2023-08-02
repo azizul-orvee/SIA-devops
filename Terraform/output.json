@@ -7,11 +7,41 @@
   "USER_POOL_APP_CLIENT_ID": {
     "sensitive": true,
     "type": "string",
-    "value": "jf9uvlu8ffaeoiflpoff7bpk4"
+    "value": "429htcbvpkbrln23nmni961ck3"
   },
   "USER_POOL_ID": {
     "sensitive": true,
     "type": "string",
-    "value": "us-east-1_9MXItUEPb"
+    "value": "us-east-1_ckAi6PO8G"
+  },
+  "frontend_bucket_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "scopic-devops-task-87df11adf9ad353b"
+  },
+  "frontend_cloudfront_distribution_domain_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "d2advbbr8e4xfm.cloudfront.net"
+  },
+  "frontend_cloudfront_distribution_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "E2PWC26VLP1NYY"
+  },
+  "rds_endpoint": {
+    "sensitive": false,
+    "type": "string",
+    "value": "mydb.cwhbiiw0pgmu.us-east-1.rds.amazonaws.com:3306"
+  },
+  "rds_hostname": {
+    "sensitive": false,
+    "type": "string",
+    "value": "mydb.cwhbiiw0pgmu.us-east-1.rds.amazonaws.com"
+  },
+  "rds_username": {
+    "sensitive": false,
+    "type": "string",
+    "value": "foo"
   }
 }
