@@ -38,10 +38,21 @@ data "aws_subnets" "default" {
      }
 }
 
-data "aws_subnet" "example" {
+data "aws_subnet" "default" {
   for_each = toset(data.aws_subnets.default.ids)
   id       = each.value
 }
+
+resource "aws_subnet" "example" {
+  vpc_id     = aws_default_vpc.default.id
+  cidr_block = "10.0.1.0/24"
+  availability_zone = "us-east-1a"
+
+  tags = {
+    Name = "example_subnet"
+  }
+}
+
 
 
 resource "aws_elastic_beanstalk_environment" "nodejs_environment" {
@@ -49,11 +60,11 @@ resource "aws_elastic_beanstalk_environment" "nodejs_environment" {
   application         = aws_elastic_beanstalk_application.app.name
   solution_stack_name = "64bit Amazon Linux 2 v5.8.4 running Node.js 18"
 
-  setting {
-    namespace = "aws:ec2:vpc"
-    name      = "VPCId"
-    value     = aws_default_vpc.default.id  # replace with your VPC ID
-  }
+setting {
+  namespace = "aws:ec2:vpc"
+  name      = "Subnets"
+  value     = aws_subnet.example.id
+}
 
   setting {
     namespace = "aws:ec2:vpc"
