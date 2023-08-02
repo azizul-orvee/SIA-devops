@@ -2,13 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql2");
-const Redis = require('ioredis');
+const Redis = require("ioredis");
 
 const dotenv = require("dotenv");
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -21,7 +21,6 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
 });
-
 
 // Redis connection
 // const redis = new Redis({
@@ -36,7 +35,6 @@ const db = mysql.createConnection({
 // redis.get('foo', function (err, result) {
 //   console.log(result);
 // });
-
 
 db.connect((err) => {
   if (err) {
@@ -60,6 +58,10 @@ db.query(createUsersTableQuery, (err, result) => {
   } else {
     console.log("Users table checked/created successfully.");
   }
+});
+
+app.get("/", (req, res) => {
+  res.send("<h1>Success!!!</h1>");
 });
 
 // Add a new route to fetch all users

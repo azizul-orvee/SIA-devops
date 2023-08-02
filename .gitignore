@@ -1,8 +1,9 @@
 # Ignore node_modules in Backend and Client
 Backend/node_modules/
 Client/node_modules/
+Terraform-State/*
 sample.txt
-
+app.zip
 # Ignore build files in Client
 Client/build/
 Client/dist/
