@@ -43,28 +43,30 @@ data "aws_subnet" "default" {
   id       = each.value
 }
 
-resource "aws_subnet" "example" {
-  vpc_id     = aws_default_vpc.default.id
-  cidr_block = "10.0.1.0/24"
-  availability_zone = "us-east-1a"
+# resource "aws_subnet" "example" {
+#   vpc_id     = aws_default_vpc.default.id
+#   cidr_block = "10.0.1.0/24"
+#   availability_zone = "us-east-1a"
 
-  tags = {
-    Name = "example_subnet"
-  }
-}
+#   tags = {
+#     Name = "example_subnet"
+#   }
+# }
 
 
 
 resource "aws_elastic_beanstalk_environment" "nodejs_environment" {
   name                = "nodejsEnvironment"
   application         = aws_elastic_beanstalk_application.app.name
-  solution_stack_name = "64bit Amazon Linux 2 v5.8.4 running Node.js 18"
+  solution_stack_name = "64bit Amazon Linux 2 v5.8.4 running Node.js 16"
 
 setting {
   namespace = "aws:ec2:vpc"
   name      = "Subnets"
-  value     = aws_subnet.example.id
+  value     = "subnet-02cea569fcb32f93e"
+  
 }
+ 
 
   setting {
     namespace = "aws:ec2:vpc"
@@ -96,6 +98,8 @@ setting {
     value     = "LoadBalanced"
   }
 }
+
+
 
 resource "aws_elastic_beanstalk_application_version" "app_version" {
   name        = "nodejs-app-version"
