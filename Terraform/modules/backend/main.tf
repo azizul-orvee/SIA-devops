@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
 data "aws_region" "current" {}
 
 resource "aws_s3_bucket" "bucket" {
@@ -38,10 +34,10 @@ data "aws_subnets" "default" {
      }
 }
 
-data "aws_subnet" "default" {
-  for_each = toset(data.aws_subnets.default.ids)
-  id       = each.value
-}
+# data "aws_subnet" "default" {
+#   for_each = toset(data.aws_subnets.default.ids)
+#   id       = each.value
+# }
 
 # resource "aws_subnet" "example" {
 #   vpc_id     = aws_default_vpc.default.id
@@ -55,10 +51,109 @@ data "aws_subnet" "default" {
 
 
 
+
+
+
+# IAM role
+resource "aws_iam_role" "role" {
+  name = "elasticbeanstalk-ec2-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect  = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+# IAM policy
+resource "aws_iam_policy" "policy" {
+  name        = "elasticbeanstalk-ec2-policy"
+  path        = "/"
+  description = "My test policy"
+
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "BucketAccess",
+            "Action": [
+                "s3:Get*",
+                "s3:List*",
+                "s3:PutObject"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::elasticbeanstalk-*",
+                "arn:aws:s3:::elasticbeanstalk-*/*"
+            ]
+        },
+        {
+            "Sid": "XRayAccess",
+            "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Sid": "CloudWatchLogsAccess",
+            "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogStream",
+                "logs:DescribeLogStreams",
+                "logs:DescribeLogGroups"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:logs:*:*:log-group:/aws/elasticbeanstalk*"
+            ]
+        },
+        {
+            "Sid": "ElasticBeanstalkHealthAccess",
+            "Action": [
+                "elasticbeanstalk:PutInstanceStatistics"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:elasticbeanstalk:*:*:application/*",
+                "arn:aws:elasticbeanstalk:*:*:environment/*"
+            ]
+        }
+    ]
+})
+}
+
+# IAM policy attachment
+resource "aws_iam_role_policy_attachment" "attach" {
+  role       = aws_iam_role.role.name
+  policy_arn = aws_iam_policy.policy.arn
+}
+
+# IAM instance profile
+resource "aws_iam_instance_profile" "profile" {
+  name = "elasticbeanstalk-ec2-profile"
+  role = aws_iam_role.role.name
+}
+
+
+
+
+
 resource "aws_elastic_beanstalk_environment" "nodejs_environment" {
   name                = "nodejsEnvironment"
   application         = aws_elastic_beanstalk_application.app.name
-  solution_stack_name = "64bit Amazon Linux 2 v5.8.4 running Node.js 16"
+  solution_stack_name = "64bit Amazon Linux 2 v5.8.4 running Node.js 18"
+  tier                = "WebServer"
 
 setting {
   namespace = "aws:ec2:vpc"
