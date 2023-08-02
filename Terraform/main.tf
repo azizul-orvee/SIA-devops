@@ -13,10 +13,10 @@ provider "aws" {
 }
 
 
-module "frontend" {
-  source = "./modules/frontend"
-  # variable1 = "value1"
-}
+# module "frontend" {
+#   source = "./modules/frontend"
+#   # variable1 = "value1"
+# }
 
 
 # module "auth" {
