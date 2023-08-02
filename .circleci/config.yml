@@ -22,7 +22,7 @@ jobs:
           path: ~/repo
       - run:
           name: Install Client Dependencies
-          working_directory: ~/repo/client
+          working_directory: /client
           command: npm install
       - run:
           name: Build Client
