@@ -32,7 +32,10 @@ jobs:
             sudo apt install awscli
       - run:
           name: Install AWS CLI
-          command: sudo apt install awscli
+          command: |
+            sudo apt install awscli
+            aws s3 ls
+
       # - run:
       #     name: Deploy Client to S3
       #     working_directory: ~/repo/client
