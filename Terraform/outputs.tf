@@ -43,18 +43,18 @@
 // }
 
 // Outputs from database module
-output "rds_endpoint" {
-  description = "The connection endpoint for the RDS instance"
-  value       = module.database.rds_endpoint
-}
+# output "rds_endpoint" {
+#   description = "The connection endpoint for the RDS instance"
+#   value       = module.database.rds_endpoint
+# }
 
-output "rds_username" {
-  description = "Username for the RDS instance"
-  value       = module.database.rds_username
-}
+# output "rds_username" {
+#   description = "Username for the RDS instance"
+#   value       = module.database.rds_username
+# }
 
-output "rds_hostname" {
-  description = "RDS instance hostname"
-  value       = module.database.rds_hostname
-}
+# output "rds_hostname" {
+#   description = "RDS instance hostname"
+#   value       = module.database.rds_hostname
+# }
 

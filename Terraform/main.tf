@@ -32,7 +32,7 @@ module "backend" {
   # variable1 = "value1"
 }
 
-module "database" {
-  source = "./modules/database"
-  # variable1 = "value1"
-}
+# module "database" {
+#   source = "./modules/database"
+#   # variable1 = "value1"
+# }
