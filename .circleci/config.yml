@@ -1,6 +1,7 @@
 version: 2
 jobs:
   test:
+    # This is a mock test
     docker:
       - image: circleci/node:latest
     steps:
@@ -20,24 +21,24 @@ jobs:
     steps:
       - checkout:
           path: ~/repo
-      # - run:
-      #     name: Install Client Dependencies
-      #     working_directory: ~/repo/Client
-      #     command: npm install
-      # - run:
-      #     name: Build the client
-      #     working_directory: ~/repo/Client
-      #     command: npm run build
+      - run:
+          name: Install Client Dependencies
+          working_directory: ~/repo/Client
+          command: npm install
+      - run:
+          name: Build the client
+          working_directory: ~/repo/Client
+          command: npm run build
       - run:
           name: Install AWS CLI
           command: |
             sudo apt update
             sudo apt install awscli
-      # - run:
-      #     name: Deploy Client to S3
-      #     working_directory: ~/repo/Client
-      #     command: |
-      #       aws s3 cp ./build $S3_BUCKET_URL --recursive
+      - run:
+          name: Deploy Client to S3
+          working_directory: ~/repo/Client
+          command: |
+            aws s3 cp ./build s3://$S3_FOR_CLIENT/ --recursive
       - run:
           name: Zip Backend
           working_directory: ~/repo/Backend
@@ -48,9 +49,9 @@ jobs:
           command: |
             VERSION_LABEL=$(date +%Y%m%d%H%M%S)
             aws configure set default.region $AWS_REGION
-            aws s3 cp Backend.zip s3://elasticbeanstalk-us-east-1-649177521606/ 
-            aws elasticbeanstalk create-application-version --application-name DevOpsSIA --version-label $VERSION_LABEL --source-bundle S3Bucket="elasticbeanstalk-us-east-1-649177521606",S3Key="Backend.zip"
-            aws elasticbeanstalk update-environment --application-name DevOpsSIA --environment-name DevOpsEnv --version-label $VERSION_LABEL
+            aws s3 cp Backend.zip s3://$S3_FOR_BEANSTALK/ 
+            aws elasticbeanstalk create-application-version --application-name $APPLICATION_NAME --version-label $VERSION_LABEL --source-bundle S3Bucket="elasticbeanstalk-us-east-1-649177521606",S3Key="Backend.zip"
+            aws elasticbeanstalk update-environment --application-name DevOpsSIA --environment-name $ENVIRONMENT_NAME --version-label $VERSION_LABEL
 
 workflows:
   version: 2
@@ -60,3 +61,6 @@ workflows:
       - build:
           requires:
             - test
+
+
+# DEVELOPED BY AZIZUL, FOR SCOPIC SOFTWARE DEVOPS TASK
