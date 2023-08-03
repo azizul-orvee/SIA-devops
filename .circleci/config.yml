@@ -28,11 +28,11 @@ jobs:
       #     name: Build the client
       #     working_directory: ~/repo/Client
       #     command: npm run build
-      # - run:
-      #     name: Install AWS CLI
-      #     command: |
-      #       sudo apt update
-      #       sudo apt install awscli
+      - run:
+          name: Install AWS CLI
+          command: |
+            sudo apt update
+            sudo apt install awscli
       # - run:
       #     name: Deploy Client to S3
       #     working_directory: ~/repo/Client
