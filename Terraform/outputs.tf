@@ -34,14 +34,6 @@ output "frontend_cloudfront_distribution_domain_name" {
 }
 
 
-
-// Outputs from backend module
-// output "BACKEND_OUTPUT" {
-//   description = "Description here"
-//   value       = module.backend.BACKEND_OUTPUT
-//   sensitive   = false
-// }
-
 // Outputs from database module
 output "rds_endpoint" {
   description = "The connection endpoint for the RDS instance"

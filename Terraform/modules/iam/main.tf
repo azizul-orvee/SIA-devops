@@ -1,3 +1,8 @@
+# This file didn't work for some reason.
+
+
+
+
 # IAM role
 resource "aws_iam_role" "role" {
   name = "ScopicDevOpsRole"
@@ -8,7 +13,7 @@ resource "aws_iam_role" "role" {
         Effect  = "Allow"
         Principal = {
           Service = "ec2.amazonaws.com"
-        }
+        },
         Action = "sts:AssumeRole"
       }
     ]
@@ -87,11 +92,8 @@ resource "aws_iam_role_policy_attachment" "attach" {
 
 # IAM instance profile
 resource "aws_iam_instance_profile" "profile" {
-  name = "elasticbeanstalk-ec2-profile"
+  name = "elasticbeanstalk-ec2-policy-scopicDevOpsPolicy"
   role = aws_iam_role.role.name
 }
 
 
-output "iam_role_name" {
-  value = aws_iam_role.role.name
-}

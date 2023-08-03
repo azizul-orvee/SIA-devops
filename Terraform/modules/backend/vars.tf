@@ -1,16 +1,14 @@
+variable "iam_role_name" {
+  type = string
+}
+
 variable "elasticapp" {
-  default = "DevOpsSIA"
+  type = string
 }
 variable "beanstalkappenv" {
-  default = "DevOpsEnv"
-}
-variable "solution_stack_name" {
   type = string
 }
-variable "tier" {
-  type = string
-}
- 
+
 variable "vpc_id" {
   type  = string
 }

@@ -12,3 +12,9 @@ output "rds_username" {
   description = "Username for the RDS instance"
   value       = aws_db_instance.default.username
 }
+
+output "rds_password" {
+  description = "Username for the RDS instance"
+  value       = aws_db_instance.default.password
+  sensitive = true
+}

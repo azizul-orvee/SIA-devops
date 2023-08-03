@@ -40,7 +40,7 @@ resource "aws_security_group" "allow_mysql" {
 
 resource "null_resource" "createdb" {
   provisioner "local-exec" {
-    command = "mysql -h ${aws_db_instance.default.address} -P 3306 -u ${aws_db_instance.default.username} -p${aws_db_instance.default.password} -e 'CREATE DATABASE mydb;'"
+    command = "mysql -h ${aws_db_instance.default.address} -P 3306 -u ${aws_db_instance.default.username} -p${aws_db_instance.default.password} -e 'CREATE DATABASE Scopic-devops-db;'"
   }
   depends_on = [aws_db_instance.default]
 }

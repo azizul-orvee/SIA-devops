@@ -1,7 +1,3 @@
-
-# variable "iam_role_name" {
-#   type = string
-# }
 # Create elastic beanstalk application
  
 resource "aws_elastic_beanstalk_application" "elasticapp" {
@@ -13,8 +9,8 @@ resource "aws_elastic_beanstalk_application" "elasticapp" {
 resource "aws_elastic_beanstalk_environment" "beanstalkappenv" {
   name                = var.beanstalkappenv
   application         = aws_elastic_beanstalk_application.elasticapp.name
-  solution_stack_name = var.solution_stack_name
-  tier                = var.tier
+  solution_stack_name = "64bit Amazon Linux 2 v5.8.4 running Node.js 18"
+  tier                = "WebServer"
 
   setting {
     namespace = "aws:ec2:vpc"
@@ -30,7 +26,7 @@ resource "aws_elastic_beanstalk_environment" "beanstalkappenv" {
   setting {
   namespace = "aws:autoscaling:launchconfiguration"
   name      = "IamInstanceProfile"
-  value     =  "BaalCreated"
+  value     =  var.iam_role_name
 
 }
   setting {
@@ -81,6 +77,7 @@ resource "aws_elastic_beanstalk_environment" "beanstalkappenv" {
     name      = "SystemType"
     value     = "enhanced"
   }
+
  
 }
 
