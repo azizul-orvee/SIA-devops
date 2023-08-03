@@ -27,36 +27,27 @@ jobs:
       - run:
           name: Build and upload to s3
           working_directory: ~/repo/Client
+          command: npm run build
+      - run:
+          name: Install AWS CLI
           command: |
-            npm run build
             sudo apt update
             sudo apt install awscli
-            aws s3 ls
+      - run:
+          name: Deploy Client to S3
+          working_directory: ~/repo/Client
+          command: |
             aws s3 cp ./build $S3_BUCKET_URL --recursive
-      # - run:
-      #     name: Install AWS CLI
-      #     command: |
-      #       sudo apt update
-      #       sudo apt install awscli
-      #       aws s3 ls
-
-      # - run:
-      #     name: Deploy Client to S3
-      #     working_directory: ~/repo/client
-      #     command: |
-      #       aws s3 cp ./build $S3_BUCKET_URL --recursive
       - run:
           name: Zip Backend
           working_directory: ~/repo/Backend
           command: zip -r Backend.zip .
-      # - run:
-      #     name: Deploy Backend to Elastic Beanstalk
-      #     command: |
-      #       aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-      #       aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-      #       aws configure set default.region $AWS_REGION
-      #       aws elasticbeanstalk create-application-version --application-name my-app --version-label my-version --source-bundle S3Bucket="bucket-name",S3Key="backend.zip"
-      #       aws elasticbeanstalk update-environment --environment-name my-env --version-label my-version
+      - run:
+          name: Deploy Backend to Elastic Beanstalk
+          command: |
+            aws s3 cp my-app.zip $S3_FOR_BEANSTALK
+            aws elasticbeanstalk create-application-version --application-name DevOpsSIA --version-label v1 --source-bundle S3Bucket="elasticbeanstalk-us-east-1-649177521606",S3Key="Backend.zip"
+            aws elasticbeanstalk update-environment --application-name DevOpsSIA --environment-name DevOpsEnv --version-label v1
 
 workflows:
   version: 2

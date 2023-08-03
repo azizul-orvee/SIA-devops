@@ -61,7 +61,7 @@ db.query(createUsersTableQuery, (err, result) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("<h1>Success, build done!!!</h1>");
+  res.send("<h1>Success, build done!!! Focus on Doc</h1>");
 });
 
 // Add a new route to fetch all users
