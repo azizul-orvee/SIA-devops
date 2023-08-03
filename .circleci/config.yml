@@ -20,24 +20,24 @@ jobs:
     steps:
       - checkout:
           path: ~/repo
-      - run:
-          name: Install Client Dependencies
-          working_directory: ~/repo/Client
-          command: npm install
-      - run:
-          name: Build the client
-          working_directory: ~/repo/Client
-          command: npm run build
-      - run:
-          name: Install AWS CLI
-          command: |
-            sudo apt update
-            sudo apt install awscli
-      - run:
-          name: Deploy Client to S3
-          working_directory: ~/repo/Client
-          command: |
-            aws s3 cp ./build $S3_BUCKET_URL --recursive
+      # - run:
+      #     name: Install Client Dependencies
+      #     working_directory: ~/repo/Client
+      #     command: npm install
+      # - run:
+      #     name: Build the client
+      #     working_directory: ~/repo/Client
+      #     command: npm run build
+      # - run:
+      #     name: Install AWS CLI
+      #     command: |
+      #       sudo apt update
+      #       sudo apt install awscli
+      # - run:
+      #     name: Deploy Client to S3
+      #     working_directory: ~/repo/Client
+      #     command: |
+      #       aws s3 cp ./build $S3_BUCKET_URL --recursive
       - run:
           name: Zip Backend
           working_directory: ~/repo/Backend
@@ -47,7 +47,7 @@ jobs:
           working_directory: ~/repo/Backend
           command: |
             aws configure set default.region $AWS_REGION
-            aws s3 cp Backend.zip $S3_FOR_BEANSTALK --region your-region
+            aws s3 cp Backend.zip $S3_FOR_BEANSTALK 
             aws elasticbeanstalk create-application-version --application-name DevOpsSIA --version-label v1 --source-bundle S3Bucket="elasticbeanstalk-us-east-1-649177521606",S3Key="Backend.zip"
             aws elasticbeanstalk update-environment --application-name DevOpsSIA --environment-name DevOpsEnv --version-label v1
 
