@@ -57,13 +57,16 @@ workflows:
   version: 2
   build_and_deploy:
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              only: main
       - build:
           requires:
             - test
-        filters:
-          branches:
-            only: main
+          filters:
+            branches:
+              only: main
 
 
 # DEVELOPED BY AZIZUL, FOR SCOPIC SOFTWARE DEVOPS TASK
