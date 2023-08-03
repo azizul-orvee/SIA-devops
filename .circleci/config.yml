@@ -48,7 +48,7 @@ jobs:
           command: |
             aws configure set default.region $AWS_REGION
             aws s3 cp Backend.zip s3://elasticbeanstalk-us-east-1-649177521606/ 
-            aws elasticbeanstalk create-application-version --application-name DevOpsSIA --version-label v1 --source-bundle S3Bucket="elasticbeanstalk-us-east-1-649177521606",S3Key="Backend.zip"
+            aws elasticbeanstalk create-application-version --application-name DevOpsSIA --version-label $VERSION_LABEL --source-bundle S3Bucket="elasticbeanstalk-us-east-1-649177521606",S3Key="Backend.zip"
             VERSION_LABEL=$(date +%Y%m%d%H%M%S)
             aws elasticbeanstalk update-environment --application-name DevOpsSIA --environment-name DevOpsEnv --version-label $VERSION_LABEL
 
