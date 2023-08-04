@@ -1,15 +1,11 @@
-# Welcome to the Amazing Codebase!
+# DevOps Project - Multi-tier Web Application Deployment
 
-Congratulations! You've just stumbled upon the most exquisite masterpiece of human ingenuity and unparalleled brilliance, our codebase. Brace yourself for an unforgettable journey through the realm of tangled logic and enigmatic bugs.
+This repository contains the source code and configuration files required for deploying a multi-tier web application using AWS S3, Elastic Beanstalk, and RDS. The application consists of a client-side React application, a backend service, and a Terraform configuration for provisioning AWS resources. The Continuous Integration/Continuous Deployment (CI/CD) pipeline is managed by CircleCI.
 
-## About This Codebase
+## Project Structure
 
-Our codebase is a majestic labyrinth of cryptic function names, obscure comments, and occasional magic numbers that will leave you in awe of the developer's creative genius. Beware, for understanding this codebase might require an ancient incantation or two.
+client/ - The client-side React application
+backend/ - The backend service
+terraform/ - Terraform configuration files for provisioning AWS resources
 
-## Get Ready for an Adventure
 
-Coding here is like embarking on a thrilling adventure - you never know what surprises await you around the next corner. From mysterious null pointer exceptions to mind-bending infinite loops, our codebase has it all.
-
-## Developer's Enigma
-
-Unraveling the true intentions of the original developer is a challenge worthy of a mythical quest. You may find yourself pondering life's profound questions
